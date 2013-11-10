@@ -1,0 +1,32 @@
+{
+  "name": "media-type",
+  "version": "0.0.1",
+  "main": "./lib/mediaType",
+  "description": "Parse and validate RFC6838 media types, anything from 'text/plain' to 'application/vnd.company.app.entity-v2+xml;charset=utf8'",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/lovell/media-type"
+  },
+  "engines": {
+    "node": "*"
+  },
+  "scripts": {
+    "test": "node test/unit"
+  },
+  "keywords": [
+    "media",
+    "type",
+    "mime",
+    "content",
+    "rfc6838",
+    "parser",
+    "validate",
+    "hateoas",
+    "vendor"
+  ],
+  "author": "Lovell Fuller",
+  "license": "Apache 2.0",
+  "dependencies": {
+    "binary-csv": "*"
+  }
+}
