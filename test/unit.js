@@ -81,7 +81,7 @@ var mediaType = require("../lib/mediaType");
   "/",
   "text/;plain",
   'text/"plain"',
-  "text/p£ain",
+  "text/pÂ£ain",
   "text/(plain)",
   "text/@plain",
   "text/plain,wrong",
