@@ -1,6 +1,6 @@
 {
   "name": "media-type",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "./lib/mediaType",
   "description": "Parse and validate RFC6838 media types, anything from 'text/plain' to 'application/vnd.company.app.entity-v2+xml;charset=utf8'",
   "repository": {
@@ -27,6 +27,6 @@
   "author": "Lovell Fuller",
   "license": "Apache 2.0",
   "dependencies": {
-    "binary-csv": "*"
+    "binary-csv": "~0.1"
   }
 }

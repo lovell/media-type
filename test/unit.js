@@ -235,3 +235,18 @@ assert.ok(!type.isVendor());
 assert.ok(!type.isPersonal());
 assert.ok(!type.isExperimental());
 assert.strictEqual(type.toString(), "application/LD+JSON-SQL*CSV.1");
+
+// https://github.com/lovell/media-type/issues/1
+type = mediaType.fromString("image/svg+xml;charset=utf8;format=foo");
+assert.ok(type.isValid());
+assert.strictEqual(type.type, "image");
+assert.strictEqual(type.subtype, "svg");
+assert.ok(type.hasSuffix());
+assert.strictEqual(type.suffix, "xml");
+assert.deepEqual(type.subtypeFacets, ["svg"]);
+assert.deepEqual(type.parameters, {"charset": "utf8", "format": "foo"});
+assert.ok(!type.isVendor());
+assert.ok(!type.isPersonal());
+assert.ok(!type.isExperimental());
+assert.strictEqual(type.toString(), "image/svg+xml;charset=utf8;format=foo");
+
