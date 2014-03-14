@@ -8,7 +8,7 @@
     "url": "git://github.com/lovell/media-type"
   },
   "engines": {
-    "node": "*"
+    "node": ">=0.10"
   },
   "scripts": {
     "test": "node test/unit"
