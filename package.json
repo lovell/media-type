@@ -1,6 +1,6 @@
 {
   "name": "media-type",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "main": "./lib/mediaType",
   "description": "Parse and validate RFC6838 media types, anything from 'text/plain' to 'application/vnd.company.app.entity-v2+xml;charset=utf8'",
   "repository": {

@@ -10,37 +10,71 @@ Aware of vendor subtype trees, +suffixes and semicolon delimited parameters.
 
     npm install media-type
 
-## Usage
+## Usage examples
 
 ```javascript
-var mediaType = require("media-type");
+var mediaType = require('media-type');
 ```
 
 ```javascript
-var media = mediaType.fromString("text/plain");
+var media = mediaType.fromString('text/plain');
 if (media.isValid()) {
-  console.log(media.type);        // "text"
-  console.log(media.subtype);     // "plain"
+  console.log(media.type);        // 'text'
+  console.log(media.subtype);     // 'plain'
   console.log(media.hasSuffix()); // false
-  console.log(media);             // "text/plain"
+  console.log(media.asString());  // 'text/plain'
+  console.log(media);             // { type: 'text', subtype: 'plain', subtypeFacets: [ 'plain' ] ... }
 }
 ```
 
 ```javascript
-var media = mediaType.fromString("application/vnd.company.app.entity-v2+xml; charset=utf8; BOM=true");
+var media = mediaType.fromString('application/vnd.company.app.entity-v2+xml; charset=utf8; BOM=true');
 if (media.isValid()) {
-  console.log(media.type);             // "application"
-  console.log(media.subtype);          // "vnd.company.app.entity-v2"
-  console.log(media.subtypeFacets);    // ["vnd", "company", "app", "entity-v2"]
+  console.log(media.type);             // 'application'
+  console.log(media.subtype);          // 'vnd.company.app.entity-v2'
+  console.log(media.subtypeFacets);    // ['vnd', 'company', 'app', 'entity-v2']
   console.log(media.hasSuffix());      // true
-  console.log(media.suffix);           // "xml"
-  console.log(media.parameters);       // {charset: "utf8", bom: "true"}
+  console.log(media.suffix);           // 'xml'
+  console.log(media.parameters);       // {charset: 'utf8', bom: 'true'}
   console.log(media.isVendor());       // true
   console.log(media.isPersonal());     // false
   console.log(media.isExperimental()); // false
-  console.log(media);                  // "application/vnd.company.app.entity-v2+xml;bom=true;charset=utf8"
+  console.log(media.asString());       // 'application/vnd.company.app.entity-v2+xml;bom=true;charset=utf8'
+  console.log(media);                  // { type: 'application', subtype: 'vnd.company.app.entity-v2',
+                                       //   subtypeFacets: [ 'vnd', 'company', 'app', 'entity-v2' ],
+                                       //   suffix: 'xml', parameters: { charset: 'utf8', bom: 'true' } }
 }
 ```
+
+## API
+
+### fromString(str)
+
+Factory method to construct an Object from a String representation of a media type.
+
+### isValid()
+
+Is this media type valid?
+
+### asString()
+
+Return media type as a normalised String.
+
+### hasSuffix()
+
+Does the media type have a suffix, e.g. the `xml` of `image/svg+xml`?
+
+### isVendor()
+
+Does the media type have a vendor prefix, e.g. `text/vnd.DMClientScript`?
+
+### isPersonal()
+
+Does the media type have a personal prefix, e.g. `text/prs.lines.tag`?
+
+### isExperimental()
+
+Does the media type have an experimental prefix, e.g. `text/x-test`?
 
 ## Test [![Build Status](https://travis-ci.org/lovell/media-type.png?branch=master)](https://travis-ci.org/lovell/media-type)
 
@@ -50,7 +84,7 @@ Run the unit tests with:
 
 ## Licence
 
-Copyright 2013 Lovell Fuller
+Copyright 2013, 2014 Lovell Fuller
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

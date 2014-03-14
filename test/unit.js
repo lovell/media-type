@@ -122,7 +122,7 @@ assert.deepEqual(type.parameters, {k1: "v1", k2: "v2a;v2b"});
 assert.ok(type.isVendor());
 assert.ok(!type.isPersonal());
 assert.ok(!type.isExperimental());
-assert.strictEqual(type.toString(), "application/vnd.openxmlformats-officedocument.wordprocessingml.document.glossary+xml;k1=v1;k2=\"v2a;v2b\"");
+assert.strictEqual(type.asString(), "application/vnd.openxmlformats-officedocument.wordprocessingml.document.glossary+xml;k1=v1;k2=\"v2a;v2b\"");
 
 type = mediaType.fromString("application/sparql-results+xml");
 assert.ok(type.isValid());
@@ -135,7 +135,7 @@ assert.deepEqual(type.parameters, {});
 assert.ok(!type.isVendor());
 assert.ok(!type.isPersonal());
 assert.ok(!type.isExperimental());
-assert.strictEqual(type.toString(), "application/sparql-results+xml");
+assert.strictEqual(type.asString(), "application/sparql-results+xml");
 
 type = mediaType.fromString("image/svg+xml; CHARSET = utf8");
 assert.ok(type.isValid());
@@ -148,7 +148,7 @@ assert.deepEqual(type.parameters, {charset: "utf8"});
 assert.ok(!type.isVendor());
 assert.ok(!type.isPersonal());
 assert.ok(!type.isExperimental());
-assert.strictEqual(type.toString(), "image/svg+xml;charset=utf8");
+assert.strictEqual(type.asString(), "image/svg+xml;charset=utf8");
 
 type = mediaType.fromString("audio/amr-wb+");
 assert.ok(type.isValid());
@@ -160,7 +160,7 @@ assert.deepEqual(type.parameters, {});
 assert.ok(!type.isVendor());
 assert.ok(!type.isPersonal());
 assert.ok(!type.isExperimental());
-assert.strictEqual(type.toString(), "audio/amr-wb+");
+assert.strictEqual(type.asString(), "audio/amr-wb+");
 
 type = mediaType.fromString("text/vnd.DMClientScript;charset=iso-8859-1");
 assert.ok(type.isValid());
@@ -172,7 +172,7 @@ assert.deepEqual(type.parameters, {charset: "iso-8859-1"});
 assert.ok(type.isVendor());
 assert.ok(!type.isPersonal());
 assert.ok(!type.isExperimental());
-assert.strictEqual(type.toString(), "text/vnd.DMClientScript;charset=iso-8859-1");
+assert.strictEqual(type.asString(), "text/vnd.DMClientScript;charset=iso-8859-1");
 
 type = mediaType.fromString("text/prs.lines.tag");
 assert.ok(type.isValid());
@@ -184,7 +184,7 @@ assert.deepEqual(type.parameters, {});
 assert.ok(!type.isVendor());
 assert.ok(type.isPersonal());
 assert.ok(!type.isExperimental());
-assert.strictEqual(type.toString(), "text/prs.lines.tag");
+assert.strictEqual(type.asString(), "text/prs.lines.tag");
 
 type = mediaType.fromString("text/x.test");
 assert.ok(type.isValid());
@@ -196,7 +196,7 @@ assert.deepEqual(type.parameters, {});
 assert.ok(!type.isVendor());
 assert.ok(!type.isPersonal());
 assert.ok(type.isExperimental());
-assert.strictEqual(type.toString(), "text/x.test");
+assert.strictEqual(type.asString(), "text/x.test");
 
 type = mediaType.fromString("text/X-test");
 assert.ok(type.isValid());
@@ -208,7 +208,7 @@ assert.deepEqual(type.parameters, {});
 assert.ok(!type.isVendor());
 assert.ok(!type.isPersonal());
 assert.ok(type.isExperimental());
-assert.strictEqual(type.toString(), "text/X-test");
+assert.strictEqual(type.asString(), "text/X-test");
 
 type = mediaType.fromString("text/x-test");
 assert.ok(type.isValid());
@@ -220,7 +220,7 @@ assert.deepEqual(type.parameters, {});
 assert.ok(!type.isVendor());
 assert.ok(!type.isPersonal());
 assert.ok(type.isExperimental());
-assert.strictEqual(type.toString(), "text/x-test");
+assert.strictEqual(type.asString(), "text/x-test");
 
 // https://twitter.com/fcw/status/398604109525184512
 type = mediaType.fromString("application/LD+JSON-SQL*CSV.1");
@@ -234,7 +234,7 @@ assert.deepEqual(type.parameters, {});
 assert.ok(!type.isVendor());
 assert.ok(!type.isPersonal());
 assert.ok(!type.isExperimental());
-assert.strictEqual(type.toString(), "application/LD+JSON-SQL*CSV.1");
+assert.strictEqual(type.asString(), "application/LD+JSON-SQL*CSV.1");
 
 // https://github.com/lovell/media-type/issues/1
 type = mediaType.fromString("image/svg+xml;charset=utf8;format=foo");
@@ -248,5 +248,4 @@ assert.deepEqual(type.parameters, {"charset": "utf8", "format": "foo"});
 assert.ok(!type.isVendor());
 assert.ok(!type.isPersonal());
 assert.ok(!type.isExperimental());
-assert.strictEqual(type.toString(), "image/svg+xml;charset=utf8;format=foo");
-
+assert.strictEqual(type.asString(), "image/svg+xml;charset=utf8;format=foo");
