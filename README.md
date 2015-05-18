@@ -1,10 +1,12 @@
 # media-type
 
-Node.js module to parse and validate [RFC6838](http://tools.ietf.org/html/rfc6838) media types.
+Node.js module to parse and validate
+[RFC6838](http://tools.ietf.org/html/rfc6838) media types.
 
-Useful for parsing `Content-Type` HTTP response headers from [HATEOAS](http://en.wikipedia.org/wiki/HATEOAS) constrained services.
+Useful for parsing `Content-Type` HTTP response headers
+from [HATEOAS](http://en.wikipedia.org/wiki/HATEOAS) constrained services.
 
-Aware of vendor subtype trees, +suffixes and semicolon delimited parameters.
+Aware of vendor subtype trees, +suffixes, wildcards and semicolon delimited parameters.
 
 ## Install
 
@@ -84,7 +86,7 @@ Run the unit tests with:
 
 ## Licence
 
-Copyright 2013, 2014 Lovell Fuller
+Copyright 2013, 2014, 2015 Lovell Fuller and contributors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

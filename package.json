@@ -1,17 +1,18 @@
 {
   "name": "media-type",
-  "version": "0.2.0",
+  "version": "0.3.0",
+  "author": "Lovell Fuller <npm@lovell.info>",
+  "contributors": [
+    "Doug Luce <aluce@adonnetwork.com> (https://github.com/dougluce)"
+  ],
   "main": "./lib/mediaType",
   "description": "Parse and validate RFC6838 media types, anything from 'text/plain' to 'application/vnd.company.app.entity-v2+xml;charset=utf8'",
+  "scripts": {
+    "test": "node test/unit"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/lovell/media-type"
-  },
-  "engines": {
-    "node": ">=0.10"
-  },
-  "scripts": {
-    "test": "node test/unit"
   },
   "keywords": [
     "media",
@@ -24,6 +25,8 @@
     "hateoas",
     "vendor"
   ],
-  "author": "Lovell Fuller",
-  "license": "Apache 2.0"
+  "license": "Apache 2.0",
+  "engines": {
+    "node": ">=0.10"
+  }
 }
