@@ -65,7 +65,11 @@ var mediaType = require("../lib/mediaType");
   "text/xml; subtype=gml/3.1.1",
 
   // https://twitter.com/fcw/status/398604109525184512
-  "application/LD+JSON-SQL*CSV.1"
+  "application/LD+JSON-SQL*CSV.1",
+
+  // wildcards from http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
+  "*/*",
+  "audio/*"
 
 ].forEach(function(value) {
   var type = mediaType.fromString(value);
@@ -85,6 +89,8 @@ var mediaType = require("../lib/mediaType");
   "text/(plain)",
   "text/@plain",
   "text/plain,wrong",
+  "*",
+  "*/plain",
 
   // https://bugs.launchpad.net/kde-baseapps/+bug/570832
   "fonts/package",
