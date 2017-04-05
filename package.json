@@ -1,9 +1,10 @@
 {
   "name": "media-type",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": "Lovell Fuller <npm@lovell.info>",
   "contributors": [
-    "Doug Luce <aluce@adonnetwork.com> (https://github.com/dougluce)"
+    "Doug Luce <aluce@adonnetwork.com> (https://github.com/dougluce)",
+    "Olivier Parent <oparent@gmail.com>"
   ],
   "main": "./lib/mediaType",
   "description": "Parse and validate RFC6838 media types, anything from 'text/plain' to 'application/vnd.company.app.entity-v2+xml;charset=utf8'",
@@ -25,7 +26,7 @@
     "hateoas",
     "vendor"
   ],
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "engines": {
     "node": ">=0.10"
   }
