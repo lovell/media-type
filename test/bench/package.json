@@ -1,0 +1,13 @@
+{
+  "name": "media-type-bench",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "test": "node bench.mjs"
+  },
+  "devDependencies": {
+    "content-type": "^1.0.5",
+    "tinybench": "^5.0.1",
+    "whatwg-mimetype": "^4.0.0"
+  }
+}

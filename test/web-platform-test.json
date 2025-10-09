@@ -1,0 +1,207 @@
+[
+  {
+    "input": "text/html;charset=gbk",
+    "output": "text/html;charset=gbk"
+  },
+  {
+    "input": "TEXT/HTML;CHARSET=GBK",
+    "output": "text/html;charset=gbk"
+  },
+  {
+    "input": "text/html;charset=gbk(",
+    "output": "text/html;charset=\"gbk(\""
+  },
+  {
+    "input": "text/html;x=(;charset=gbk",
+    "output": "text/html;x=\"(\";charset=gbk"
+  },
+  {
+    "input": "text/html;charset=gbk;charset=windows-1255",
+    "output": "text/html;charset=gbk"
+  },
+  {
+    "input": "text/html;charset=();charset=GBK",
+    "output": "text/html;charset=\"()\""
+  },
+  {
+    "input": "text/html ;charset=gbk",
+    "output": "text/html;charset=gbk"
+  },
+  {
+    "input": "text/html; charset=gbk",
+    "output": "text/html;charset=gbk"
+  },
+  {
+    "input": "text/html;charset= gbk",
+    "output": "text/html;charset=gbk"
+  },
+  {
+    "input": "text/html;charset= \"gbk\"",
+    "output": "text/html;charset=gbk"
+  },
+  {
+    "input": "text/html;charset=\u000bgbk",
+    "output": "text/html;charset=gbk"
+  },
+  {
+    "input": "text/html;charset=\fgbk",
+    "output": "text/html;charset=gbk"
+  },
+  {
+    "input": "text/html;\u000bcharset=gbk",
+    "output": "text/html;charset=gbk"
+  },
+  {
+    "input": "text/html;\fcharset=gbk",
+    "output": "text/html;charset=gbk"
+  },
+  {
+    "input": "text/html;charset='gbk'",
+    "output": "text/html;charset='gbk'"
+  },
+  {
+    "input": "text/html;charset='gbk",
+    "output": "text/html;charset='gbk"
+  },
+  {
+    "input": "text/html;charset=gbk'",
+    "output": "text/html;charset=gbk'"
+  },
+  {
+    "input": "text/html;charset=';charset=GBK",
+    "output": "text/html;charset='"
+  },
+  {
+    "input": "text/html;test;charset=gbk",
+    "output": "text/html;charset=gbk"
+  },
+  {
+    "input": "text/html;test=;charset=gbk",
+    "output": "text/html;test=\"\";charset=gbk"
+  },
+  {
+    "input": "text/html;';charset=gbk",
+    "output": "text/html;charset=gbk"
+  },
+  {
+    "input": "text/html;\";charset=gbk",
+    "output": "text/html;charset=gbk"
+  },
+  {
+    "input": "text/html ; ; charset=gbk",
+    "output": "text/html;charset=gbk"
+  },
+  {
+    "input": "text/html;;;;charset=gbk",
+    "output": "text/html;charset=gbk"
+  },
+  {
+    "input": "text/html;charset= \";charset=GBK",
+    "output": "text/html"
+  },
+  {
+    "input": "text/html;charset=\";charset=foo\";charset=GBK",
+    "output": "text/html;charset=gbk"
+  },
+  {
+    "input": "text/html;charset=\"gbk\"",
+    "output": "text/html;charset=gbk"
+  },
+  {
+    "input": "text/html;charset=\"gbk",
+    "output": "text/html;charset=gbk"
+  },
+  {
+    "input": "text/html;charset=gbk\"",
+    "output": "text/html;charset=\"gbk\\\"\""
+  },
+  {
+    "input": "text/html;charset=\" gbk\"",
+    "output": "text/html;charset=\" gbk\""
+  },
+  {
+    "input": "text/html;charset=\"gbk \"",
+    "output": "text/html;charset=\"gbk \""
+  },
+  {
+    "input": "text/html;charset=\"gbk\"x",
+    "output": "text/html;charset=gbk"
+  },
+  {
+    "input": "text/html;charset=\"\";charset=GBK",
+    "output": "text/html;charset=\"\""
+  },
+  {
+    "input": "text/html;charset=\";charset=GBK",
+    "output": "text/html;charset=\";charset=gbk\""
+  },
+  {
+    "input": "text/html;charset={gbk}",
+    "output": "text/html;charset=\"{gbk}\""
+  },
+  {
+    "input": "text/html;0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789=x;charset=gbk",
+    "output": "text/html;0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789=x;charset=gbk"
+  },
+  {
+    "input": "text/html;a]=bar;b[=bar;c=bar",
+    "output": "text/html;c=bar"
+  },
+  {
+    "input": "text/html;valid=\";\";foo=bar",
+    "output": "text/html;valid=\";\";foo=bar"
+  },
+  {
+    "input": "text/html;in]valid=\";asd=foo\";foo=bar",
+    "output": "text/html;foo=bar"
+  },
+  {
+    "input": "text/html;test=ÿ;charset=gbk",
+    "output": "text/html;test=\"ÿ\";charset=gbk"
+  },
+  {
+    "input": "\t"
+  },
+  {
+    "input": "/"
+  },
+  {
+    "input": "bogus"
+  },
+  {
+    "input": "bogus/"
+  },
+  {
+    "input": "bogus/ "
+  },
+  {
+    "input": "bogus/bogus/;"
+  },
+  {
+    "input": "</>"
+  },
+  {
+    "input": "(/)"
+  },
+  {
+    "input": "ÿ/ÿ"
+  },
+  {
+    "input": "text/html(;doesnot=matter"
+  },
+  {
+    "input": "{/}"
+  },
+  {
+    "input": "Ā/Ā"
+  },
+  {
+    "input": "text /html"
+  },
+  {
+    "input": "text/ html"
+  },
+  {
+    "input": "\"text/html\""
+  }
+]

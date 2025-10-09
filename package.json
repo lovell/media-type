@@ -1,33 +1,46 @@
 {
   "name": "media-type",
-  "version": "0.3.1",
+  "version": "1.0.0-alpha.0",
   "author": "Lovell Fuller <npm@lovell.info>",
   "contributors": [
     "Doug Luce <aluce@adonnetwork.com> (https://github.com/dougluce)",
     "Olivier Parent <oparent@gmail.com>"
   ],
-  "main": "./lib/mediaType",
-  "description": "Parse and validate RFC6838 media types, anything from 'text/plain' to 'application/vnd.company.app.entity-v2+xml;charset=utf8'",
+  "type": "module",
+  "exports": {
+    "require": "./dist/media-type.cjs",
+    "import": "./dist/media-type.mjs"
+  },
+  "files": [
+    "index.d.ts",
+    "dist"
+  ],
+  "types": "index.d.ts",
+  "description": "Parse and validate RFC6838/RFC9694 media types, anything from 'text/plain' to 'application/vnd.company.app.entity-v2+xml;charset=utf8'",
   "scripts": {
-    "test": "node test/unit"
+    "build": "npm run build:cjs && npm run build:mjs",
+    "build:cjs": "esbuild src/media-type.mjs --bundle --platform=node --format=cjs --outfile=dist/media-type.cjs",
+    "build:mjs": "esbuild src/media-type.mjs --bundle --platform=node --format=esm --outfile=dist/media-type.mjs",
+    "lint": "biome check && tsd --files test/index.test-d.ts",
+    "test": "node --experimental-test-coverage --test test/*.mjs"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/lovell/media-type"
+    "url": "git://github.com/lovell/media-type.git"
   },
   "keywords": [
-    "media",
-    "type",
-    "mime",
-    "content",
+    "mime-type",
+    "content-type",
     "rfc6838",
-    "parser",
-    "validate",
-    "hateoas",
-    "vendor"
+    "rfc9694"
   ],
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=0.10"
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.6",
+    "esbuild": "^0.25.10",
+    "tsd": "^0.33.0"
   }
 }

@@ -1,0 +1,61 @@
+name: CI
+on:
+  - push
+  - pull_request
+permissions: {}
+jobs:
+  test:
+    permissions:
+      contents: read
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        node-version:
+          - "20"
+          - "22"
+          - "24"
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v5
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install
+    - run: npm run build
+    - run: npm run lint
+    - run: npm test
+  bench:
+    needs: test
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - run: npm install
+      - run: npm run build
+      - working-directory: ./test/bench
+        run: npm install
+      - working-directory: ./test/bench
+        run: node bench.mjs
+      - working-directory: ./test/bench
+        run: deno bench.mjs
+  publish:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: bench
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+      - run: npm install
+      - run: npm run build
+      - run: npm publish --tag=${{ contains(github.ref, '-rc') && 'rc' || 'latest' }}
