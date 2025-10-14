@@ -8,7 +8,7 @@ media types.
 
 The typical use case is for handling `Content-Type` HTTP headers.
 
-- High performance, benchmarked against similar packages and runtime-provided utilities
+- High performance, benchmarked against alternative packages and runtime-provided utilities
 - Includes TypeScript definitions
 - Provides ESM and CommonJS exports
 - Supports vendor subtype trees, +suffixes, wildcards and semicolon delimited parameters
@@ -64,7 +64,7 @@ if (media) {
 ## Performance
 
 Benchmark tests to measure latency (lower is better) and throughput (higher is better)
-when parsing common `Content-Type` headers using this package and similar alternatives.
+when parsing common `Content-Type` headers using this package and alternatives.
 
 ```
 $ node -v
