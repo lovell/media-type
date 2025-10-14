@@ -9,7 +9,18 @@ export class MediaType {
   constructor(mediaType?: string);
 
   essence: string;
-  type: string;
+  type:
+    | "application"
+    | "audio"
+    | "font"
+    | "image"
+    | "haptics"
+    | "message"
+    | "model"
+    | "multipart"
+    | "text"
+    | "video"
+    | "*";
   subtype: string;
   subtypeFacets: string[];
   suffix: string | null;

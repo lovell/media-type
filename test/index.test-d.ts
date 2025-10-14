@@ -7,7 +7,7 @@
 
 import { MediaType } from "..";
 
-const input: string = "a/b+c";
+const input: string = "application/test+json; charset=utf-8";
 
 const mediaTypeConstructed: MediaType = new MediaType(input);
 
