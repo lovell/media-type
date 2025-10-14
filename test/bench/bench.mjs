@@ -5,9 +5,11 @@
 
 import contentType from "content-type";
 import { Bench, hrtimeNow } from "tinybench";
-import MIMEType from "whatwg-mimetype";
+import WhatWGMIMEType from "whatwg-mimetype";
 
 import { MediaType } from "../../dist/media-type.mjs";
+
+const { MIMEType } = await import("node:util");
 
 const input = [
   "application/json",
@@ -22,31 +24,37 @@ const input = [
 
 const bench = new Bench({ now: hrtimeNow });
 
-await bench
-  .add("whatwg-mimetype (new MIMEType)", () => {
+bench.add("whatwg-mimetype (new MIMEType)", () => {
+  for (let i = 0; i < input.length; i++) {
+    const output = new WhatWGMIMEType(input[i]);
+    output.toString();
+  }
+});
+MIMEType &&
+  bench.add("node:util (new MIMEType)", () => {
     for (let i = 0; i < input.length; i++) {
       const output = new MIMEType(input[i]);
       output.toString();
     }
-  })
-  .add("content-type (parse+format)", () => {
-    for (let i = 0; i < input.length; i++) {
-      const output = contentType.parse(input[i]);
-      contentType.format(output);
-    }
-  })
-  .add("media-type (MediaType.parse)", () => {
-    for (let i = 0; i < input.length; i++) {
-      const output = MediaType.parse(input[i]);
-      output.toString();
-    }
-  })
-  .add("media-type (new MediaType)", () => {
-    for (let i = 0; i < input.length; i++) {
-      const output = new MediaType(input[i]);
-      output.toString();
-    }
-  })
-  .run();
+  });
+bench.add("content-type (parse+format)", () => {
+  for (let i = 0; i < input.length; i++) {
+    const output = contentType.parse(input[i]);
+    contentType.format(output);
+  }
+});
+bench.add("media-type (MediaType.parse)", () => {
+  for (let i = 0; i < input.length; i++) {
+    const output = MediaType.parse(input[i]);
+    output.toString();
+  }
+});
+bench.add("media-type (new MediaType)", () => {
+  for (let i = 0; i < input.length; i++) {
+    const output = new MediaType(input[i]);
+    output.toString();
+  }
+});
 
+await bench.run();
 console.table(bench.table());

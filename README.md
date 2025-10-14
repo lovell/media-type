@@ -8,7 +8,7 @@ media types.
 
 The typical use case is for handling `Content-Type` HTTP headers.
 
-- High performance, benchmarked against similar packages
+- High performance, benchmarked against similar packages and runtime-provided utilities
 - Includes TypeScript definitions
 - Provides ESM and CommonJS exports
 - Supports vendor subtype trees, +suffixes, wildcards and semicolon delimited parameters
@@ -63,7 +63,8 @@ if (media) {
 
 ## Performance
 
-Benchmark tests to parse common `Content-Type` headers using this package and alternatives.
+Benchmark tests to measure latency (lower is better) and throughput (higher is better)
+when parsing common `Content-Type` headers using this package and similar alternatives.
 
 ```
 $ node -v
@@ -71,10 +72,11 @@ v24.10.0
 ┌──────────────────────────────────┬──────────────────┬───────────────────┬────────────────────────┬────────────────────────┬─────────┐
 │ Task name                        │ Latency avg (ns) │ Latency med (ns)  │ Throughput avg (ops/s) │ Throughput med (ops/s) │ Samples │
 ├──────────────────────────────────┼──────────────────┼───────────────────┼────────────────────────┼────────────────────────┼─────────┤
-│ 'whatwg-mimetype (new MIMEType)' │ '5003.7 ± 0.33%' │ '4749.0 ± 119.00' │ '206772 ± 0.04%'       │ '210571 ± 5316'        │ 199852  │
-│ 'content-type (parse+format)'    │ '3037.5 ± 0.23%' │ '2943.0 ± 32.00'  │ '335063 ± 0.02%'       │ '339789 ± 3655'        │ 329221  │
-│ 'media-type (MediaType.parse)'   │ '2758.0 ± 0.22%' │ '2636.0 ± 51.00'  │ '370204 ± 0.03%'       │ '379363 ± 7335'        │ 362584  │
-│ 'media-type (new MediaType)'     │ '2617.9 ± 0.22%' │ '2532.0 ± 32.00'  │ '388232 ± 0.02%'       │ '394944 ± 5055'        │ 381988  │
+│ 'whatwg-mimetype (new MIMEType)' │ '4968.1 ± 0.28%' │ '4719.0 ± 116.01' │ '207433 ± 0.04%'       │ '211909 ± 5293'        │ 201283  │
+│ 'node:util (new MIMEType)'       │ '4800.3 ± 0.30%' │ '4616.0 ± 92.00'  │ '212402 ± 0.03%'       │ '216638 ± 4356'        │ 208319  │
+│ 'content-type (parse+format)'    │ '3049.4 ± 0.39%' │ '2896.0 ± 23.00'  │ '335937 ± 0.03%'       │ '345304 ± 2763'        │ 327939  │
+│ 'media-type (MediaType.parse)'   │ '2786.1 ± 0.17%' │ '2673.0 ± 54.00'  │ '365192 ± 0.02%'       │ '374111 ± 7568'        │ 358927  │
+│ 'media-type (new MediaType)'     │ '2711.5 ± 0.21%' │ '2610.0 ± 31.00'  │ '374652 ± 0.02%'       │ '383142 ± 4606'        │ 368799  │
 └──────────────────────────────────┴──────────────────┴───────────────────┴────────────────────────┴────────────────────────┴─────────┘
 ```
 
