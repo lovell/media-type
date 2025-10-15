@@ -110,16 +110,14 @@ const invalidMediaTypes = [
   "video/example",
 ];
 
-test("Valid media types via constructor", (t) => {
-  t.plan?.(validMediaTypes.length);
+test("Valid media types via constructor", () => {
   validMediaTypes.forEach(function (value) {
     const type = new MediaType(value);
     ok(type, `Valid media type ${value} was invalid`);
   });
 });
 
-test("Invalid media types via constructor", (t) => {
-  t.plan?.(invalidMediaTypes.length);
+test("Invalid media types via constructor", () => {
   invalidMediaTypes.forEach((value) => {
     throws(
       () => new MediaType(value),
@@ -129,16 +127,14 @@ test("Invalid media types via constructor", (t) => {
   });
 });
 
-test("Valid media types via parse", (t) => {
-  t.plan?.(validMediaTypes.length);
+test("Valid media types via parse", () => {
   validMediaTypes.forEach(function (value) {
     const type = MediaType.parse(value);
     ok(type, `Valid media type ${value} was invalid`);
   });
 });
 
-test("Invalid media types via parse", (t) => {
-  t.plan?.(invalidMediaTypes.length);
+test("Invalid media types via parse", () => {
   invalidMediaTypes.forEach((value) => {
     const type = MediaType.parse(value);
     strictEqual(type, null, `Invalid media type ${value} was valid`);
