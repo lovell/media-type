@@ -3,6 +3,7 @@
   SPDX-License-Identifier: Apache-2.0
 */
 
+import { deepEqual, ok, strictEqual, throws } from "node:assert";
 import { test } from "node:test";
 import { MediaType } from "../dist/media-type.mjs";
 
@@ -110,17 +111,17 @@ const invalidMediaTypes = [
 ];
 
 test("Valid media types via constructor", (t) => {
-  t.plan(validMediaTypes.length);
+  t.plan?.(validMediaTypes.length);
   validMediaTypes.forEach(function (value) {
     const type = new MediaType(value);
-    t.assert.ok(type, `Valid media type ${value} was invalid`);
+    ok(type, `Valid media type ${value} was invalid`);
   });
 });
 
 test("Invalid media types via constructor", (t) => {
-  t.plan(invalidMediaTypes.length);
-  invalidMediaTypes.forEach(function (value) {
-    t.assert.throws(
+  t.plan?.(invalidMediaTypes.length);
+  invalidMediaTypes.forEach((value) => {
+    throws(
       () => new MediaType(value),
       /Invalid MediaType/,
       `Invalid media type ${value} did not throw`,
@@ -129,182 +130,176 @@ test("Invalid media types via constructor", (t) => {
 });
 
 test("Valid media types via parse", (t) => {
-  t.plan(validMediaTypes.length);
+  t.plan?.(validMediaTypes.length);
   validMediaTypes.forEach(function (value) {
     const type = MediaType.parse(value);
-    t.assert.ok(type, `Valid media type ${value} was invalid`);
+    ok(type, `Valid media type ${value} was invalid`);
   });
 });
 
 test("Invalid media types via parse", (t) => {
-  t.plan(invalidMediaTypes.length);
+  t.plan?.(invalidMediaTypes.length);
   invalidMediaTypes.forEach((value) => {
     const type = MediaType.parse(value);
-    t.assert.strictEqual(type, null, `Invalid media type ${value} was valid`);
+    strictEqual(type, null, `Invalid media type ${value} was valid`);
   });
 });
 
-test("Detailed media type properties", (t) => {
+test("Detailed media type properties", () => {
   var type = MediaType.parse(
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document.glossary+xml;k2="v2a;v2b"; k1=v1',
   );
-  t.assert.strictEqual(type.type, "application");
-  t.assert.strictEqual(
+  strictEqual(type.type, "application");
+  strictEqual(
     type.subtype,
     "vnd.openxmlformats-officedocument.wordprocessingml.document.glossary",
   );
-  t.assert.ok(type.hasSuffix());
-  t.assert.strictEqual(type.suffix, "xml");
-  t.assert.deepEqual(type.subtypeFacets, [
+  ok(type.hasSuffix());
+  strictEqual(type.suffix, "xml");
+  deepEqual(type.subtypeFacets, [
     "vnd",
     "openxmlformats-officedocument",
     "wordprocessingml",
     "document",
     "glossary",
   ]);
-  t.assert.deepEqual(
+  deepEqual(
     type.parameters,
     new Map([
       ["k1", "v1"],
       ["k2", "v2a;v2b"],
     ]),
   );
-  t.assert.ok(type.isVendor());
-  t.assert.ok(!type.isPersonal());
-  t.assert.ok(!type.isExperimental());
-  t.assert.ok(!type.isHTML());
-  t.assert.ok(type.isXML());
-  t.assert.ok(!type.isJavaScript());
-  t.assert.strictEqual(
+  ok(type.isVendor());
+  ok(!type.isPersonal());
+  ok(!type.isExperimental());
+  ok(!type.isHTML());
+  ok(type.isXML());
+  ok(!type.isJavaScript());
+  strictEqual(
     type.toString(),
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document.glossary+xml;k2="v2a;v2b";k1=v1',
   );
 
   type = MediaType.parse("application/sparql-results+xml");
-  t.assert.strictEqual(type.type, "application");
-  t.assert.strictEqual(type.subtype, "sparql-results");
-  t.assert.ok(type.hasSuffix());
-  t.assert.strictEqual(type.suffix, "xml");
-  t.assert.deepEqual(type.subtypeFacets, ["sparql-results"]);
-  t.assert.deepEqual(type.parameters.size, 0);
-  t.assert.ok(!type.isVendor());
-  t.assert.ok(!type.isPersonal());
-  t.assert.ok(!type.isExperimental());
-  t.assert.strictEqual(type.toString(), "application/sparql-results+xml");
+  strictEqual(type.type, "application");
+  strictEqual(type.subtype, "sparql-results");
+  ok(type.hasSuffix());
+  strictEqual(type.suffix, "xml");
+  deepEqual(type.subtypeFacets, ["sparql-results"]);
+  deepEqual(type.parameters.size, 0);
+  ok(!type.isVendor());
+  ok(!type.isPersonal());
+  ok(!type.isExperimental());
+  strictEqual(type.toString(), "application/sparql-results+xml");
 
   type = MediaType.parse("image/svg+xml; CHARSET = utf8");
-  t.assert.strictEqual(type.type, "image");
-  t.assert.strictEqual(type.subtype, "svg");
-  t.assert.ok(type.hasSuffix());
-  t.assert.strictEqual(type.suffix, "xml");
-  t.assert.deepEqual(type.subtypeFacets, ["svg"]);
-  t.assert.deepEqual(type.parameters, new Map([["charset", "utf8"]]));
-  t.assert.ok(!type.isVendor());
-  t.assert.ok(!type.isPersonal());
-  t.assert.ok(!type.isExperimental());
-  t.assert.strictEqual(type.toString(), "image/svg+xml;charset=utf8");
+  strictEqual(type.type, "image");
+  strictEqual(type.subtype, "svg");
+  ok(type.hasSuffix());
+  strictEqual(type.suffix, "xml");
+  deepEqual(type.subtypeFacets, ["svg"]);
+  deepEqual(type.parameters, new Map([["charset", "utf8"]]));
+  ok(!type.isVendor());
+  ok(!type.isPersonal());
+  ok(!type.isExperimental());
+  strictEqual(type.toString(), "image/svg+xml;charset=utf8");
 
   type = MediaType.parse("audio/amr-wb+");
-  t.assert.strictEqual(type.type, "audio");
-  t.assert.strictEqual(type.subtype, "amr-wb+");
-  t.assert.ok(!type.hasSuffix());
-  t.assert.deepEqual(type.subtypeFacets, ["amr-wb+"]);
-  t.assert.deepEqual(type.parameters, new Map());
-  t.assert.ok(!type.isVendor());
-  t.assert.ok(!type.isPersonal());
-  t.assert.ok(!type.isExperimental());
-  t.assert.strictEqual(type.toString(), "audio/amr-wb+");
+  strictEqual(type.type, "audio");
+  strictEqual(type.subtype, "amr-wb+");
+  ok(!type.hasSuffix());
+  deepEqual(type.subtypeFacets, ["amr-wb+"]);
+  deepEqual(type.parameters, new Map());
+  ok(!type.isVendor());
+  ok(!type.isPersonal());
+  ok(!type.isExperimental());
+  strictEqual(type.toString(), "audio/amr-wb+");
 
   type = MediaType.parse("text/vnd.DMClientScript;charset=iso-8859-1");
-  t.assert.strictEqual(type.type, "text");
-  t.assert.strictEqual(type.subtype, "vnd.dmclientscript");
-  t.assert.ok(!type.hasSuffix());
-  t.assert.deepEqual(type.subtypeFacets, ["vnd", "dmclientscript"]);
-  t.assert.deepEqual(type.parameters, new Map([["charset", "iso-8859-1"]]));
-  t.assert.ok(type.isVendor());
-  t.assert.ok(!type.isPersonal());
-  t.assert.ok(!type.isExperimental());
-  t.assert.strictEqual(
-    type.toString(),
-    "text/vnd.dmclientscript;charset=iso-8859-1",
-  );
+  strictEqual(type.type, "text");
+  strictEqual(type.subtype, "vnd.dmclientscript");
+  ok(!type.hasSuffix());
+  deepEqual(type.subtypeFacets, ["vnd", "dmclientscript"]);
+  deepEqual(type.parameters, new Map([["charset", "iso-8859-1"]]));
+  ok(type.isVendor());
+  ok(!type.isPersonal());
+  ok(!type.isExperimental());
+  strictEqual(type.toString(), "text/vnd.dmclientscript;charset=iso-8859-1");
 
   type = MediaType.parse("text/prs.lines.tag");
-  t.assert.strictEqual(type.type, "text");
-  t.assert.strictEqual(type.subtype, "prs.lines.tag");
-  t.assert.ok(!type.hasSuffix());
-  t.assert.deepEqual(type.subtypeFacets, ["prs", "lines", "tag"]);
-  t.assert.deepEqual(type.parameters, new Map());
-  t.assert.ok(!type.isVendor());
-  t.assert.ok(type.isPersonal());
-  t.assert.ok(!type.isExperimental());
-  t.assert.strictEqual(type.toString(), "text/prs.lines.tag");
+  strictEqual(type.type, "text");
+  strictEqual(type.subtype, "prs.lines.tag");
+  ok(!type.hasSuffix());
+  deepEqual(type.subtypeFacets, ["prs", "lines", "tag"]);
+  deepEqual(type.parameters, new Map());
+  ok(!type.isVendor());
+  ok(type.isPersonal());
+  ok(!type.isExperimental());
+  strictEqual(type.toString(), "text/prs.lines.tag");
 
   type = MediaType.parse("text/x.test");
-  t.assert.strictEqual(type.type, "text");
-  t.assert.strictEqual(type.subtype, "x.test");
-  t.assert.ok(!type.hasSuffix());
-  t.assert.deepEqual(type.subtypeFacets, ["x", "test"]);
-  t.assert.deepEqual(type.parameters, new Map());
-  t.assert.ok(!type.isVendor());
-  t.assert.ok(!type.isPersonal());
-  t.assert.ok(type.isExperimental());
-  t.assert.strictEqual(type.toString(), "text/x.test");
+  strictEqual(type.type, "text");
+  strictEqual(type.subtype, "x.test");
+  ok(!type.hasSuffix());
+  deepEqual(type.subtypeFacets, ["x", "test"]);
+  deepEqual(type.parameters, new Map());
+  ok(!type.isVendor());
+  ok(!type.isPersonal());
+  ok(type.isExperimental());
+  strictEqual(type.toString(), "text/x.test");
 
   type = MediaType.parse("text/X-test");
-  t.assert.strictEqual(type.type, "text");
-  t.assert.strictEqual(type.subtype, "x-test");
-  t.assert.ok(!type.hasSuffix());
-  t.assert.deepEqual(type.subtypeFacets, ["x-test"]);
-  t.assert.deepEqual(type.parameters, new Map());
-  t.assert.ok(!type.isVendor());
-  t.assert.ok(!type.isPersonal());
-  t.assert.ok(type.isExperimental());
-  t.assert.strictEqual(type.toString(), "text/x-test");
+  strictEqual(type.type, "text");
+  strictEqual(type.subtype, "x-test");
+  ok(!type.hasSuffix());
+  deepEqual(type.subtypeFacets, ["x-test"]);
+  deepEqual(type.parameters, new Map());
+  ok(!type.isVendor());
+  ok(!type.isPersonal());
+  ok(type.isExperimental());
+  strictEqual(type.toString(), "text/x-test");
 
   type = MediaType.parse("text/x-test");
-  t.assert.strictEqual(type.type, "text");
-  t.assert.strictEqual(type.subtype, "x-test");
-  t.assert.ok(!type.hasSuffix());
-  t.assert.deepEqual(type.subtypeFacets, ["x-test"]);
-  t.assert.deepEqual(type.parameters, new Map());
-  t.assert.ok(!type.isVendor());
-  t.assert.ok(!type.isPersonal());
-  t.assert.ok(type.isExperimental());
-  t.assert.strictEqual(type.toString(), "text/x-test");
+  strictEqual(type.type, "text");
+  strictEqual(type.subtype, "x-test");
+  ok(!type.hasSuffix());
+  deepEqual(type.subtypeFacets, ["x-test"]);
+  deepEqual(type.parameters, new Map());
+  ok(!type.isVendor());
+  ok(!type.isPersonal());
+  ok(type.isExperimental());
+  strictEqual(type.toString(), "text/x-test");
 
   // https://x.com/fcw/status/398604109525184512
   type = MediaType.parse("application/LD+JSON-SQL*CSV.1");
-  t.assert.strictEqual(type.type, "application");
-  t.assert.strictEqual(type.subtype, "ld");
-  t.assert.ok(type.hasSuffix());
-  t.assert.strictEqual(type.suffix, "json-sql*csv.1");
-  t.assert.deepEqual(type.subtypeFacets, ["ld"]);
-  t.assert.deepEqual(type.parameters, new Map());
-  t.assert.ok(!type.isVendor());
-  t.assert.ok(!type.isPersonal());
-  t.assert.ok(!type.isExperimental());
-  t.assert.strictEqual(type.toString(), "application/ld+json-sql*csv.1");
+  strictEqual(type.type, "application");
+  strictEqual(type.subtype, "ld");
+  ok(type.hasSuffix());
+  strictEqual(type.suffix, "json-sql*csv.1");
+  deepEqual(type.subtypeFacets, ["ld"]);
+  deepEqual(type.parameters, new Map());
+  ok(!type.isVendor());
+  ok(!type.isPersonal());
+  ok(!type.isExperimental());
+  strictEqual(type.toString(), "application/ld+json-sql*csv.1");
 
   // https://github.com/lovell/media-type/issues/1
   type = MediaType.parse("image/svg+xml;charset=utf8;format=foo");
-  t.assert.strictEqual(type.type, "image");
-  t.assert.strictEqual(type.subtype, "svg");
-  t.assert.ok(type.hasSuffix());
-  t.assert.strictEqual(type.suffix, "xml");
-  t.assert.deepEqual(type.subtypeFacets, ["svg"]);
-  t.assert.deepEqual(
+  strictEqual(type.type, "image");
+  strictEqual(type.subtype, "svg");
+  ok(type.hasSuffix());
+  strictEqual(type.suffix, "xml");
+  deepEqual(type.subtypeFacets, ["svg"]);
+  deepEqual(
     type.parameters,
     new Map([
       ["charset", "utf8"],
       ["format", "foo"],
     ]),
   );
-  t.assert.ok(!type.isVendor());
-  t.assert.ok(!type.isPersonal());
-  t.assert.ok(!type.isExperimental());
-  t.assert.strictEqual(
-    type.toString(),
-    "image/svg+xml;charset=utf8;format=foo",
-  );
+  ok(!type.isVendor());
+  ok(!type.isPersonal());
+  ok(!type.isExperimental());
+  strictEqual(type.toString(), "image/svg+xml;charset=utf8;format=foo");
 });

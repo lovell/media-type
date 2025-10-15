@@ -19,8 +19,8 @@
   "description": "Parse and validate RFC6838/RFC9694 media types, anything from 'text/plain' to 'application/vnd.company.app.entity-v2+xml;charset=utf8'",
   "scripts": {
     "build": "npm run build:cjs && npm run build:mjs",
-    "build:cjs": "esbuild src/media-type.mjs --bundle --platform=node --format=cjs --outfile=dist/media-type.cjs",
-    "build:mjs": "esbuild src/media-type.mjs --bundle --platform=node --format=esm --outfile=dist/media-type.mjs",
+    "build:cjs": "esbuild src/media-type.mjs --bundle --minify --platform=node --format=cjs --outfile=dist/media-type.cjs",
+    "build:mjs": "esbuild src/media-type.mjs --bundle --minify --platform=node --format=esm --outfile=dist/media-type.mjs",
     "lint": "biome check && tsd --files test/index.test-d.ts",
     "test": "node --experimental-test-coverage --test test/*.mjs"
   },
@@ -36,7 +36,7 @@
   ],
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=20"
+    "node": ">=18"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.6",
