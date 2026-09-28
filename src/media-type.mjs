@@ -5,18 +5,18 @@
 
 function parse(val, mediaType) {
   if (typeof val !== "string") return null;
-  const trimmed = val?.trim().toLowerCase();
+  const trimmed = val?.trim();
   if (!trimmed) return null;
   const slashIndex = trimmed.indexOf("/");
   if (slashIndex === -1) return null;
 
-  const type = trimmed.slice(0, slashIndex);
+  const type = trimmed.slice(0, slashIndex).toLowerCase();
   const remaining = trimmed.slice(slashIndex + 1);
   const semicolonIndex = remaining.indexOf(";");
   const subtype =
     semicolonIndex === -1
-      ? remaining
-      : remaining.slice(0, semicolonIndex).trim();
+      ? remaining.toLowerCase()
+      : remaining.slice(0, semicolonIndex).trim().toLowerCase();
   const params = semicolonIndex === -1 ? null : remaining.slice(semicolonIndex);
 
   if (
@@ -75,7 +75,7 @@ function parseParameters(input) {
       while (i < len && input[i] !== "=") i++;
     }
 
-    const key = input.slice(keyStart, i).trim();
+    const key = input.slice(keyStart, i).trim().toLowerCase();
     if (key.length === 0) break;
     i++; // skip '='
 
@@ -211,7 +211,7 @@ MediaType.prototype.toString = function () {
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i];
     const value = this.parameters.get(key);
-    result = `${result}${key}=${value.length === 0 || /[^a-z0-9-']/.test(value) ? `"${value.replaceAll('"', '\\"')}"` : value}`;
+    result = `${result}${key}=${value.length === 0 || /[^a-zA-Z0-9-']/.test(value) ? `"${value.replaceAll('"', '\\"')}"` : value}`;
     if (i < keys.length - 1) {
       result = `${result};`;
     }
