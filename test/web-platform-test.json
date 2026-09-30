@@ -5,7 +5,7 @@
   },
   {
     "input": "TEXT/HTML;CHARSET=GBK",
-    "output": "text/html;charset=gbk"
+    "output": "text/html;charset=GBK"
   },
   {
     "input": "text/html;charset=gbk(",
@@ -101,7 +101,7 @@
   },
   {
     "input": "text/html;charset=\";charset=foo\";charset=GBK",
-    "output": "text/html;charset=gbk"
+    "output": "text/html;charset=GBK"
   },
   {
     "input": "text/html;charset=\"gbk\"",
@@ -133,7 +133,7 @@
   },
   {
     "input": "text/html;charset=\";charset=GBK",
-    "output": "text/html;charset=\";charset=gbk\""
+    "output": "text/html;charset=\";charset=GBK\""
   },
   {
     "input": "text/html;charset={gbk}",

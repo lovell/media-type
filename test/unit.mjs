@@ -298,4 +298,19 @@ test("Detailed media type properties", () => {
   ok(!type.isPersonal());
   ok(!type.isExperimental());
   strictEqual(type.toString(), "image/svg+xml;charset=utf8;format=foo");
+
+  // https://github.com/lovell/media-type/issues/8
+  type = MediaType.parse("Multipart/Form-Data; Boundary=AbC123");
+  strictEqual(type.type, "multipart");
+  strictEqual(type.subtype, "form-data");
+  deepEqual(type.parameters, new Map([["boundary", "AbC123"]]));
+  strictEqual(type.toString(), "multipart/form-data;boundary=AbC123");
+
+  type = MediaType.parse("text/html; CHARSET=UTF-8");
+  deepEqual(type.parameters, new Map([["charset", "UTF-8"]]));
+  strictEqual(type.toString(), "text/html;charset=UTF-8");
+
+  type = MediaType.parse("text/html; charset=utf-8");
+  deepEqual(type.parameters, new Map([["charset", "utf-8"]]));
+  strictEqual(type.toString(), "text/html;charset=utf-8");
 });
