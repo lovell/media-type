@@ -7,7 +7,7 @@ jobs:
   test:
     permissions:
       contents: read
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     strategy:
       matrix:
         node-version:
@@ -15,26 +15,27 @@ jobs:
           - "20"
           - "22"
           - "24"
+          - "26"
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v5
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm install
-    - run: npm run build
-    - run: npm run lint
-    - run: npm test
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install
+      - run: npm run build
+      - run: npm run lint
+      - run: npm test
   bench:
     needs: test
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version: "24"
-      - uses: denoland/setup-deno@v2
+          node-version: "26"
+      - uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed # v2.0.5
         with:
           deno-version: v2.x
       - run: npm install
@@ -48,15 +49,15 @@ jobs:
   publish:
     if: startsWith(github.ref, 'refs/tags/v')
     needs: bench
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     permissions:
       contents: read
       id-token: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version: "24"
+          node-version: "26"
       - run: npm install
       - run: npm run build
       - run: npm publish --tag=${{ contains(github.ref, '-rc') && 'rc' || 'latest' }}

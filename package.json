@@ -39,8 +39,8 @@
     "node": ">=18"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.2.6",
-    "esbuild": "^0.25.10",
+    "@biomejs/biome": "^2.5.15",
+    "esbuild": "^0.28.2",
     "tsd": "^0.33.0"
   }
 }
